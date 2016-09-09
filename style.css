@@ -1,7 +1,10 @@
 .sidebar {
 	background-color: #982;
+	padding-top: 100px;
 }
 
 .main {
-	background-color: #ddd; 
+	background-color: #ddd;
+	padding-top: 100px;
+	 
 }

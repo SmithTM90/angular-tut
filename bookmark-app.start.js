@@ -20,4 +20,57 @@ angular.module('bookmark', [
 		{"id": 7, "title": "Wimp", "url": "http://angularjs.org", "category": "Humor"},
 		{"id": 8, "title": "Dump", "url": "http://angularjs.org", "category": "Humor"}
 	];
+
+	$scope.currentCategory = null;
+
+	function setCurrentCategory(category) {
+		$scope.currentCategory = category;
+
+		cancelCreating();
+		cancelEditing();
+	}
+
+	function isCurrentCategory(category) {
+		return $scope.currentCategory !== null && category.name === $scope.currentCategory.name;
+	}
+
+	$scope.setCurrentCategory = setCurrentCategory;
+	$scope.isCurrentCategory = isCurrentCategory;
+
+	$scope.isCreating = false;
+	$scope.isEditing = false;
+
+	function startCreating() {
+		$scope.isCreating = true;
+		$scope.isEditing = false;
+	}
+
+	function cancelCreating() {
+		$scope.isCreating = false;
+	}
+
+	function startEditing() {
+		$scope.isEditing = true;
+		$scope.isCreating = false;
+	}
+
+	function cancelEditing() {
+		$scope.isEditing = false;
+	}
+
+	function shouldShowCreating() {
+		return $scope.currentCategory && !$scope.isEditing;
+	}
+
+	function shouldShowEditing() {
+		return $scope.isEditing && !$scope.isCreating;
+	}
+
+	$scope.startCreating = startCreating;
+	$scope.cancelCreating = cancelCreating;
+	$scope.startEditing = startEditing;
+	$scope.cancelEditing = cancelEditing;
+	$scope.shouldShowEditing = shouldShowEditing;
+	$scope.shouldShowCreating = shouldShowCreating;
+
 });
