@@ -37,9 +37,6 @@ angular.module('bookmark', [
 	$scope.setCurrentCategory = setCurrentCategory;
 	$scope.isCurrentCategory = isCurrentCategory;
 
-
-
-
 	function resetCreateForm() {
 		$scope.newBookmark = {
 			title: '',
@@ -55,12 +52,40 @@ angular.module('bookmark', [
 		resetCreateForm();
 	}
 
-	$scope.resetCreateForm = resetCreateForm;
 	$scope.createBookmark = createBookmark;
 
+	$scope.editedBookmark = null;
 
+	function setEditedBookmark(bookmark) {
+		$scope.editedBookmark = angular.copy(bookmark);
+	}
 
+	function updateBookmark(bookmark) {
+		var index = _.findIndex($scope.bookmarks, function(b) {
+			b.id == bookmark.id
+		});
+		$scope.bookmarks(index) = bookmark;
+		$scope.editedBookmark = null;
+		$scope.isEditing = false;
+	}
 
+	function isSelectedBookmark(bookmarkID) {
+		return $scope.editedBookmark !== null && $scope.editedBookmark.id === bookmarkID;
+	}
+
+	function deleteBookmark(bookmark) {
+		_.remove($scope.bookmarks, function(b) {
+			return b.id == bookmark.id;
+		});
+	}
+
+	$scope.deleteBookmark = deleteBookmark;
+
+	$scope.isSelectedBookmark = isSelectedBookmark;
+
+	$scope.updateBookmark = updateBookmark;
+
+	$scope.setEditedBookmark = setEditedBookmark;w
 
 	$scope.isCreating = false;
 	$scope.isEditing = false;
