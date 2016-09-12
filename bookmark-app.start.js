@@ -37,12 +37,39 @@ angular.module('bookmark', [
 	$scope.setCurrentCategory = setCurrentCategory;
 	$scope.isCurrentCategory = isCurrentCategory;
 
+
+
+
+	function resetCreateForm() {
+		$scope.newBookmark = {
+			title: '',
+			url: '',
+			category: $scope.currentCategory.name
+		}
+	}
+
+	function createBookmark(bookmark) {
+		bookmark.id = $scope.bookmarks.length;
+		$scope.bookmarks.push(bookmark);
+
+		resetCreateForm();
+	}
+
+	$scope.resetCreateForm = resetCreateForm;
+	$scope.createBookmark = createBookmark;
+
+
+
+
+
 	$scope.isCreating = false;
 	$scope.isEditing = false;
 
 	function startCreating() {
 		$scope.isCreating = true;
 		$scope.isEditing = false;
+
+		resetCreateForm();
 	}
 
 	function cancelCreating() {
@@ -50,8 +77,8 @@ angular.module('bookmark', [
 	}
 
 	function startEditing() {
-		$scope.isEditing = true;
 		$scope.isCreating = false;
+		$scope.isEditing = true;
 	}
 
 	function cancelEditing() {
